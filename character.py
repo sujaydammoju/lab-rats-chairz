@@ -6,7 +6,7 @@ class Character():
     def __init__(self, char_name, char_description):
         self.name = char_name
         self.description = char_description
-        self.conversation = None
+        self.speech = None
 
     def isEnemy(self):
         return False
@@ -15,17 +15,16 @@ class Character():
     def describe(self):
         print( self.name + " is here!" )
         print( self.description )
-        for i in self.weaknesses:
-            print(i)
+        print("You can TALK to "+self.name)
 
     # Set what this character will say when talked to
-    def set_conversation(self, conversation):
-        self.conversation = conversation
+    def set_speech(self, speech):
+        self.speech = speech
 
     # Talk to this character
     def talk(self):
-        if self.conversation is not None:
-            print("[" + self.name + " says]: " + self.conversation)
+        if self.speech is not None:
+            print("[" + self.name + " says]: " + self.speech)
         else:
             print(self.name + " doesn't want to talk to you")
 
@@ -54,9 +53,10 @@ class Enemy(Character):
     # If weapon matches weakness, then extra damage
     def fight(self, combat_item):
         if combat_item in self.weaknesses:
-            attack = randrange(1,7)+randrange(1,7)+randrange(1,7)+10
+            attack = randrange(1,7)+randrange(1,7)+randrange(1,7)+5
             print("You fend " + self.name + " off with the " + combat_item + ".")
-            print("It's super effective!")
+            if attack > 12:
+                print("It's super effective!")
             print("A -"+str(attack)+" attack!")
         else:
             attack = randrange(1,7)
@@ -68,4 +68,3 @@ class Enemy(Character):
         damage = randrange(1,7) + randrange(1,7)
         print(self.name+" attacks you! -"+str(damage)+" HP")
         return damage
-    

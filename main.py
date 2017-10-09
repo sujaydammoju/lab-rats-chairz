@@ -8,14 +8,16 @@ myHealth = 53
 visitedRooms = []
 
 # Set up rooms
-# Room descriptions should include interactive containers like CABINET, BIN, DESK, SHELF, SHOEBOX that contain interactive items
+
+# Kitchen
+# Room descriptions should include interactive containers like CABINET, BIN, DESK, SHELF, SHOEBOX that contain/hide other interactive items
 kitchen = Room("Kitchen","A dark and dirty room with flies buzzing around. There are dirty beakers, graduated cylinders, and pipettes in the sink. There is a CABINET under the sink.")
 
-# The kitchen has a CABINET object that contains 2 interactive items, a knife and a twinkie
+# The kitchen has a CABINET object that contains/hides 2 interactive items, a knife and a twinkie
 # Once this container is open, the interactive items will no longer be hidden in the container
 kitchen.cabinet = Container("cabinet under the sink",["knife","twinkie"])
 
-# Create an interactive item in a room (not hidden in a container) with create_room_item()
+# Create an interactive item that's show in a room (not hidden in a container) with create_room_item()
 kitchen.create_room_item("spoon")
 kitchen.create_room_item("rat")
 
@@ -28,7 +30,7 @@ redFlashlight = Flashlight("red",0,False)
 
 # Laboratory
 lab = Room("Laboratory","A bright room with sunlight shining through windows secured by prison bars. There is a messy SHELF on the north wall.")
-# The lab has a SHELF object that contains 3 interactive items. Shelf gets a third arg because you'd say ON the shelf, not IN the shelf
+# The lab has a SHELF object that contains 3 interactive items. Shelf gets a third argument because you'd say ON the shelf, not IN the shelf
 lab.shelf = Container("shelf",["brass key","spork","yellow flashlight"],"on")
 lab.create_room_item("rat")
 yellowFlashlight = Flashlight("yellow",1,True)
@@ -54,7 +56,7 @@ current_room = kitchen
 
 # Set up characters
 dmitry = Enemy("Dmitry", "A smelly zombie")
-dmitry.set_conversation("Brrlgrh... rgrhl... brains...")
+dmitry.set_speech("Brrlgrh... rgrhl... brains...")
 dmitry.set_weaknesses(["FORK","SPORK","KNIFE"])
 supplycloset.set_character(dmitry)
 
