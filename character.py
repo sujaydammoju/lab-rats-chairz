@@ -1,5 +1,6 @@
 from random import *
 
+
 class Character():
 
     # Create a character
@@ -54,17 +55,17 @@ class Enemy(Character):
     def fight(self, combat_item):
         if combat_item in self.weaknesses:
             attack = randrange(1,7)+randrange(1,7)+randrange(1,7)+5
-            print("You fend " + self.name + " off with the " + combat_item + ".")
+            print("-=-=-=-=-=- You fend " + self.name + " off with the " + combat_item + ". -=-=-=-=-=-")
             if attack > 12:
-                print("It's super effective!")
-            print("A -"+str(attack)+" attack!")
+                print("-=-=-=-=-=- It's super effective!")
+            print("-=-=-=-=-=- A -"+str(attack)+" attack!")
         else:
             attack = randrange(1,7)
-            print("You use the " + combat_item + " for a -"+str(attack)+" attack!")
+            print("********** You use the " + combat_item + " for a -"+str(attack)+" attack! **********")
         self.enemyHealth -= attack
         return self.enemyHealth
 
     def enemyAttack(self):
         damage = randrange(1,7) + randrange(1,7)
-        print(self.name+" attacks you! -"+str(damage)+" HP")
+        print("\n!@#$%^&*!@#$%^&* "+self.name+" attacks you! -"+str(damage)+" HP! *&^%$#@!*&^%$#@!\n")
         return damage
