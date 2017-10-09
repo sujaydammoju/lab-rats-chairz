@@ -34,6 +34,7 @@ class Character():
         print(self.name + " doesn't want to fight with you")
         return True
 
+# Enemy Is A Sub Class of Character
 class Enemy(Character):
 
     # Constructor for enemy
