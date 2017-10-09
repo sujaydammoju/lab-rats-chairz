@@ -11,8 +11,11 @@ visitedRooms = []
 
 # Kitchen
 # Room descriptions should include interactive containers like CABINET, BIN, DESK, SHELF, SHOEBOX that contain/hide other interactive items
-kitchen = Room("Kitchen","A dark and dirty room with flies buzzing around. There are dirty beakers, graduated cylinders, and pipettes in the sink. There is a CABINET under the sink.")
+kitchen = Room("Kitchen","A dark and dirty room with flies buzzing around. There are dirty beakers, graduated cylinders, and pipettes in the sink. There is a CUPBOARD above the sink and a CABINET under the sink.")
 
+# The kitchen has a CUPBOARD object that contains/hides 3 interactive items, a sponge, a plate, a twinkie
+# Once this container is open, the interactive items will no longer be hidden in the container
+kitchen.cupboard = Container("cupboard above the sink",["sponge","plate","twinkie"])
 # The kitchen has a CABINET object that contains/hides 2 interactive items, a knife and a twinkie
 # Once this container is open, the interactive items will no longer be hidden in the container
 kitchen.cabinet = Container("cabinet under the sink",["knife","twinkie"])
@@ -109,6 +112,10 @@ def checkUserInput(current_room,command,heldItems):
         current_room.character.talk()
     elif "FIGHT" in command and current_room.get_character() is not None:
         current_room.character.talk()
+    # ********************************* ROOM SPECIFIC USER INPUTS *********************************
+    elif current_room.name == "Kitchen" and command == "CUPBOARD":
+        # Open kitchen.cupboard and concat each of the contents to the end of room_items
+        current_room.room_items += kitchen.cupboard.open()
     # Can only open cabinet if holding a flashlight that isOn
     elif current_room.name == "Kitchen" and command == "CABINET" and (("red flashlight" in heldItems and redFlashlight.isOn) or ("yellow flashlight" in heldItems and yellowFlashlight.isOn)):
         # Open kitchen.cabinet and concat each of the contents to the end of room_items
