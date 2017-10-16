@@ -16,14 +16,14 @@ Gym = Room("Gym","A big, empty, dark room with a bunch of boxes everywhere. On t
 
 # The kitchen has a CUPBOARD object that contains/hides 3 interactive items, a sponge, a plate, a can of soup
 # Once this container is open, the interactive items will no longer be hidden in the container
-Gym.box = Box("box right next to you",["basketball","shoe","tennis ball"])
+Gym.box = Container("box right next to you",["basketball","shoe","tennis ball"])
 # The kitchen has a CABINET object that contains/hides 2 interactive items, a knife and a twinkie
 # Once this container is open, the interactive items will no longer be hidden in the container
-Gym.box2 = Box2("a closed, shiny box near the gym door",["Diary of A Wimpy Kid book","baseball helmet"])
+Gym.box2 = Container("a closed, shiny box near the gym door",["Diary of A Wimpy Kid book","baseball helmet"])
 
 # Create an interactive item that's show in a room (not hidden in a container) with create_room_item()
-kitchen.create_room_item("knife")
-kitchen.create_room_item("first aid")
+Gym.create_room_item("knife")
+Gym.create_room_item("first aid")
 
 # Small Office
 #
@@ -50,23 +50,23 @@ supplycloset = Room("Supply Closet","A small dark room with a musty smell. On on
 locked = Room("locked","")
 
 # Connect rooms. These are one-way connections.
-kitchen.link_room(locked, "EAST")
-kitchen.link_room(smalloffice, "SOUTH")
-kitchen.link_room(locked, "WEST")
+Gym.link_room(locked, "EAST")
+Gym.link_room(smalloffice, "SOUTH")
+Gym.link_room(locked, "WEST")
 supplycloset.link_room(smalloffice, "EAST")
-smalloffice.link_room(kitchen, "NORTH")
+smalloffice.link_room(Gym, "NORTH")
 smalloffice.link_room(lab, "EAST")
 smalloffice.link_room(locked, "SOUTH")
 smalloffice.link_room(supplycloset, "WEST")
 lab.link_room(locked, "SOUTH")
 lab.link_room(smalloffice, "WEST")
-current_room = kitchen
+current_room = Gym
 
 # Set up characters
-dmitry = Enemy("OJ Simpson", "A big man, who committed multiple murders. He is a prisoner in the school and his way out is killing you.")
-dmitry.set_speech("Absolutely, 100 percent not guilty.")
-dmitry.set_weaknesses(["Diary of a Wimpy Kid Book","knife","Sulfuric Acid"])
-supplycloset.set_character(dmitry)
+ojsimpson = Enemy("OJ Simpson", "A big man, who committed multiple murders. He is a prisoner in the school and his way out is killing you.")
+ojsimpson.set_speech("Absolutely, 100 percent not guilty.")
+ojsimpson.set_weaknesses(["Diary of a Wimpy Kid Book","knife","Sulfuric Acid"])
+#classroom.set_character(ojsimpson)
 
 # This is a procedure that simply prints the items the player is holding and tells them if they can do something with that item
 def playerItems():
@@ -129,12 +129,12 @@ def checkUserInput(current_room,command,heldItems):
     # Interactive containers look like this...   elif current_room.name == "Laboratory" and command == "SHELF"
     elif current_room.name == "Gym" and command == "BOX":
         # Open kitchen.cupboard and concat each of the contents to the end of room_items
-        current_room.room_items += kitchen.cupboard.open()
+        current_room.room_items += Gym.box.open()
     # Can only open cabinet if holding a flashlight that isOn
-    elif current_room.name == "Gym" and command == "BOX" and (("knife" in heldItems):
+    elif current_room.name == "Gym" and command == "BOX" and ("knife" in heldItems):
         # Open kitchen.cabinet and concat each of the contents to the end of room_items
         print("You use knife to open up box.")
-        current_room.room_items += kitchen.box.open()
+        current_room.room_items += Gym.box2.open()
     elif current_room.name == "Gym" and command == "SHINY BOX":
         print("You check the cabinet, but it's too dark to see if there is anything inside.")
     elif current_room.name == "Small Office" and command == "PACKAGE":
